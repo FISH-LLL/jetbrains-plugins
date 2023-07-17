@@ -36,5 +36,4 @@ class MyPluginTest : BasePlatformTestCase() {
     }
 
     override fun getTestDataPath() = "src/test/testData/rename"
-
 }
