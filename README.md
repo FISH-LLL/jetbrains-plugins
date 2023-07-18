@@ -36,6 +36,10 @@ To keep everything working, do not remove `<!-- ... -->` sections.
   Download the [latest release](https://github.com/FISH-LLL/jetbrains-plugins/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
+## 安装效果
+
+- View -> Tool Windows -> MyToolWindow
+
 
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
