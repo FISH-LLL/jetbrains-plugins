@@ -22,12 +22,17 @@
     </applicationListeners>
 
     <actions>
-        <group id="TrainPlugin.GreetingMenu" text="Greeting" description="Greeting menu">
+        <group id="TrainPlugin.GreetingMenu" text="火车票" description="Greeting menu">
             <add-to-group group-id="MainMenu" anchor="last"/>
             <action id="TrainPlugin.Hello"
-                    class="com.github.fishlll.jetbrainsplugins.MainMenu.HelloAction"
+                    class="com.github.fishlll.jetbrainsplugins.actions.HelloAction"
                     text="Hello"
                     description="Says Hello"/>
-         </group>
+
+            <action id="TrainPlugin.PsiDemo"
+                    class="com.github.fishlll.jetbrainsplugins.actions.PsiNavigationDemoAction"
+                    text="PSI Navigation Demo"/>
+        </group>
+
     </actions>
 </idea-plugin>
