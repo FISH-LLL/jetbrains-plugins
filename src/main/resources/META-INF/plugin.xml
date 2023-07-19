@@ -1,9 +1,12 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.fishlll.jetbrainsplugins</id>
-    <name>jetbrains-plugins Template</name>
+    <name>Qunar Train Plugin</name>
+
+    <!-- Text to display as company information on Settings | Plugin page -->
     <vendor>fish-lll</vendor>
 
+    <!-- Indicate this plugin can be loaded in all IntelliJ Platform-based products. -->
     <depends>com.intellij.modules.platform</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
@@ -17,4 +20,14 @@
         <listener class="com.github.fishlll.jetbrainsplugins.listeners.MyApplicationActivationListener"
                   topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
+
+    <actions>
+        <group id="TrainPlugin.GreetingMenu" text="Greeting" description="Greeting menu">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action id="TrainPlugin.Hello"
+                    class="com.github.fishlll.jetbrainsplugins.MainMenu.HelloAction"
+                    text="Hello"
+                    description="Says Hello"/>
+         </group>
+    </actions>
 </idea-plugin>

@@ -39,7 +39,7 @@ To keep everything working, do not remove `<!-- ... -->` sections.
 ## 安装效果
 
 - View -> Tool Windows -> MyToolWindow
-
+- MainMenu -> Greeting -> Hello
 
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
