@@ -24,8 +24,8 @@ class PsiNavigationDemoAction: AnAction(){
 		val element = psiFile.findElementAt(offset) ?: return
 		println(element)
 		var info = "光标所在元素: ${element}" + "\n"
-//		val containingMethod = PsiTreeUtil.getParentOfType<PsiMethod>(element, PsiMethod::class.java)
-//		PsiTreeUtil.
+		val containingMethod = PsiTreeUtil.getParentOfType(element, PsiMethod::class.java)
+		println(containingMethod)
 	}
 
 	override fun update(e: AnActionEvent) {

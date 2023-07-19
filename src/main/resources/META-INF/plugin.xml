@@ -7,7 +7,9 @@
     <vendor>fish-lll</vendor>
 
     <!-- Indicate this plugin can be loaded in all IntelliJ Platform-based products. -->
+    <depends>com.intellij.modules.java</depends>
     <depends>com.intellij.modules.platform</depends>
+
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
