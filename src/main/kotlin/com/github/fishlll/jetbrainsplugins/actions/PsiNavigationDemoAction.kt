@@ -20,12 +20,33 @@ class PsiNavigationDemoAction: AnAction(){
 			return
 		}
 
-		val offset = editor.caretModel.offset
-		val element = psiFile.findElementAt(offset) ?: return
-		println(element)
-		var info = "光标所在元素: ${element}" + "\n"
-		val containingMethod = PsiTreeUtil.getParentOfType(element, PsiMethod::class.java)
-		println(containingMethod)
+		var info = "光标所在元素:"
+
+		do {
+			val offset = editor.caretModel.offset
+			val element = psiFile.findElementAt(offset) ?: break
+			info += "$element" + "\n"
+
+			val containingMethod = PsiTreeUtil.getParentOfType(element, PsiMethod::class.java) ?: break
+			info += "所在方法:${containingMethod?.name}\n"
+
+			val containingClass = containingMethod.containingClass ?: break
+			info += "所在类:${containingClass?.name}\n"
+
+			info += "本地变量:\n"
+			containingMethod.accept(object : JavaRecursiveElementVisitor() {
+				override fun visitLocalVariable(variable: PsiLocalVariable?) {
+					super.visitLocalVariable(variable)
+					if (variable == null) {
+						return
+					}
+					info += variable?.name + "\n"
+				}
+			})
+
+		}while (false)
+
+		println("PSI:" + info)
 	}
 
 	override fun update(e: AnActionEvent) {
