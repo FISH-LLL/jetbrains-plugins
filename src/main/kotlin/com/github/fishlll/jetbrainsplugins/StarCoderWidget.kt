@@ -214,7 +214,7 @@ class StarCoderWidget(project: Project) : EditorBasedWidget(project), Multiframe
 		// Check the existing inline hint (not blocks) if it exists.
 		val inlayModel = focusedEditor.inlayModel
 		if (currentPosition > lastPosition) {
-			var existingHints = file.getUserData<Array<String?>>(STAR_CODER_CODE_SUGGESTION)
+			var existingHints = file.getUserData<Array<String>>(STAR_CODER_CODE_SUGGESTION)
 			if (existingHints != null && existingHints.size > 0) {
 				var inlineHint = existingHints[0]
 				var modifiedText =
@@ -291,7 +291,7 @@ class StarCoderWidget(project: Project) : EditorBasedWidget(project), Multiframe
 		focusedEditor: Editor,
 		file: VirtualFile,
 		suggestionPosition: Int,
-		hintList: Array<String?>?
+		hintList: Array<String>?
 	) {
 		WriteCommandAction.runWriteCommandAction(focusedEditor.project) {
 

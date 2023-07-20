@@ -68,11 +68,11 @@ class StarCoderSettings : PersistentStateComponent<Element?> {
 
 	var apiToken: String?
 		get() {
-			val credentials: Credentials = PasswordSafe.getInstance().get(CREDENTIAL_ATTRIBUTES)
+			val credentials = PasswordSafe.instance.get(CREDENTIAL_ATTRIBUTES)
 			return if (credentials != null) credentials.getPasswordAsString() else ""
 		}
 		set(apiToken) {
-			PasswordSafe.getInstance().set(CREDENTIAL_ATTRIBUTES, Credentials(null, apiToken))
+			PasswordSafe.instance.set(CREDENTIAL_ATTRIBUTES, Credentials(null, apiToken))
 		}
 
 	fun setTemperature(temperature: String) {
@@ -109,6 +109,6 @@ class StarCoderSettings : PersistentStateComponent<Element?> {
 				starCoderSettingsInstance
 			} else ApplicationManager.getApplication().getService(
 				StarCoderSettings::class.java
-			) ?: return starCoderSettingsInstance
+			) ?: starCoderSettingsInstance
 	}
 }

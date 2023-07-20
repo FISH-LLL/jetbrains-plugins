@@ -9,6 +9,8 @@ import com.intellij.openapi.wm.WindowManager
 import org.jetbrains.annotations.NonNls
 import javax.swing.JComponent
 
+import com.github.fishlll.jetbrainsplugins.settings.SettingsPanel
+
 class StarCoderSettingsProvider : EditorOptionsProvider {
 	private var settingsPanel: SettingsPanel? = null
 	override fun getId(): @NonNls String {
@@ -27,22 +29,22 @@ class StarCoderSettingsProvider : EditorOptionsProvider {
 	}
 
 	override fun isModified(): Boolean {
-		val savedSettings: StarCoderSettings = StarCoderSettings.Companion.getInstance()
+		val savedSettings: StarCoderSettings = StarCoderSettings.instance
 		return (savedSettings.apiURL != settingsPanel!!.apiUrl
-				|| savedSettings.apiToken != settingsPanel!!.apiToken || savedSettings.tabActionOption != settingsPanel!!.tabActionOption) || savedSettings.isSaytEnabled != settingsPanel!!.enableSAYTCheckBox || savedSettings.temperature != settingsPanel!!.temperature.toFloat() || savedSettings.maxNewTokens != settingsPanel!!.maxNewTokens.toInt() || savedSettings.topP != settingsPanel!!.topP.toFloat() || savedSettings.repetitionPenalty != settingsPanel!!.repetition.toFloat()
+				|| savedSettings.apiToken != settingsPanel!!.apiToken || savedSettings.tabActionOption != settingsPanel!!.tabActionOption) || savedSettings.isSaytEnabled != settingsPanel!!.enableSAYTCheckBox || savedSettings.temperature != settingsPanel!!.temperature?.toFloat() ?: 0.0 || savedSettings.maxNewTokens != settingsPanel!!.maxNewTokens!!.toInt() || savedSettings.topP != (settingsPanel!!.topP?.toFloat() ?: 0.0) || savedSettings.repetitionPenalty != (settingsPanel!!.repetition?.toFloat() ?: 0.0)
 	}
 
 	@Throws(ConfigurationException::class)
 	override fun apply() {
-		val savedSettings: StarCoderSettings = StarCoderSettings.Companion.getInstance()
-		savedSettings.apiURL = settingsPanel!!.apiUrl
+		val savedSettings: StarCoderSettings = StarCoderSettings.instance
+		savedSettings.apiURL = settingsPanel!!.apiUrl ?: ""
 		savedSettings.apiToken = settingsPanel!!.apiToken
 		savedSettings.isSaytEnabled = settingsPanel!!.enableSAYTCheckBox
-		savedSettings.tabActionOption = settingsPanel!!.tabActionOption
-		savedSettings.setTemperature(settingsPanel!!.temperature)
-		savedSettings.setMaxNewTokens(settingsPanel!!.maxNewTokens)
-		savedSettings.setTopP(settingsPanel!!.topP)
-		savedSettings.setRepetitionPenalty(settingsPanel!!.repetition)
+		savedSettings.tabActionOption = settingsPanel!!.tabActionOption!!
+		savedSettings.setTemperature(settingsPanel!!.temperature ?: "未设置")
+		savedSettings.setMaxNewTokens(settingsPanel!!.maxNewTokens ?: "未设置")
+		savedSettings.setTopP(settingsPanel!!.topP ?: "未设置")
+		savedSettings.setRepetitionPenalty(settingsPanel!!.repetition ?: "未设置")
 
 		// Update the widget
 		for (openProject in ProjectManager.getInstance().openProjects) {
@@ -51,7 +53,7 @@ class StarCoderSettingsProvider : EditorOptionsProvider {
 	}
 
 	override fun reset() {
-		val savedSettings: StarCoderSettings = StarCoderSettings.Companion.getInstance()
+		val savedSettings: StarCoderSettings = StarCoderSettings.Companion.instance
 		settingsPanel!!.apiUrl = savedSettings.apiURL
 		settingsPanel!!.apiToken = savedSettings.apiToken
 		settingsPanel!!.enableSAYTCheckBox = savedSettings.isSaytEnabled
