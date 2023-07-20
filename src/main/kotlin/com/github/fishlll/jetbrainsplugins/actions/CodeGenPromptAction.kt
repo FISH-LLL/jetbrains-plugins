@@ -14,7 +14,7 @@ class CodeGenPromptAction : AnAction() {
 		val selectionStart = focusedEditor.selectionModel.selectionStart
 		val selectionEnd = focusedEditor.selectionModel.selectionEnd
 		val selectedText = focusedEditor.caretModel.currentCaret.selectedText
-		if (StringUtils.isEmpty(selectedText))
+		if (selectedText == null || StringUtils.isEmpty(selectedText))
 			return
 
 		val starCoder = ApplicationManager.getApplication().getService(
@@ -35,6 +35,6 @@ class CodeGenPromptAction : AnAction() {
 		if (focusedEditor != null) {
 			selection = focusedEditor!!.caretModel.currentCaret.selectedText ?: ""
 		}
-		e.presentation.isEnabledAndVisible = !StringUtils.isEmpty(selection)
+		e.presentation.isEnabledAndVisible = selection.isNotEmpty()
 	}
 }
