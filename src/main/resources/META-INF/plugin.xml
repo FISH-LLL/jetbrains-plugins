@@ -12,7 +12,6 @@
     <depends>com.intellij.modules.java</depends>
     <depends>com.intellij.modules.platform</depends>
 
-
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
@@ -28,14 +27,21 @@
     <actions>
         <group id="TrainPlugin.GreetingMenu" text="火车票" description="Greeting menu">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="TrainPlugin.Hello"
+            <action id="com.github.fishlll.jetbrainsplugins.actions.HelloAction"
                     class="com.github.fishlll.jetbrainsplugins.actions.HelloAction"
                     text="Hello"
                     description="Says Hello"/>
 
-            <action id="TrainPlugin.PsiDemo"
+            <action id="com.github.fishlll.jetbrainsplugins.actions.PsiNavigationDemoAction"
                     class="com.github.fishlll.jetbrainsplugins.actions.PsiNavigationDemoAction"
                     text="PSI Navigation Demo"/>
+
+            <action class="com.github.fishlll.jetbrainsplugins.actions.CodeGenPromptAction"
+                    id="com.github.fishlll.jetbrainsplugins.actions.CodeGenPromptAction"
+                    text="Prompt with Selection">
+                <keyboard-shortcut first-keystroke="alt P" keymap="$default"/>
+            </action>
+
         </group>
 
     </actions>
