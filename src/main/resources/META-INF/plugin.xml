@@ -18,8 +18,14 @@
         <toolWindow factoryClass="com.github.fishlll.jetbrainsplugins.toolWindow.MyToolWindowFactory"
                     id="MyToolWindow"/>
 
+        <editorOptionsProvider instance="com.github.fishlll.jetbrainsplugins.settings.StarCoderSettingsProvider"/>
         <applicationService serviceImplementation="com.github.fishlll.jetbrainsplugins.StarCoderService"/>
-
+        <applicationService serviceImplementation="com.github.fishlll.jetbrainsplugins.settings.StarCoderSettings"/>
+        <statusBarWidgetFactory id="StarCoderFactory"
+                                implementation="com.github.fishlll.jetbrainsplugins.StarCoderWidgetFactory"
+                                order="after positionWidget"/>
+        <editorActionHandler action="EditorTab" implementationClass="com.github.fishlll.jetbrainsplugins.actions.CodeGenTabAction"/>
+        <notificationGroup id="StarCoder" displayType="STICKY_BALLOON" isLogByDefault="true"/>
     </extensions>
 
     <applicationListeners>
@@ -43,6 +49,18 @@
                     id="com.github.fishlll.jetbrainsplugins.actions.CodeGenPromptAction"
                     text="Prompt with Selection">
                 <keyboard-shortcut first-keystroke="alt P" keymap="$default"/>
+            </action>
+
+            <action class="com.github.fishlll.jetbrainsplugins.actions.CodeGenInsertAllAction"
+                    id="com.github.fishlll.jetbrainsplugins.actions.CodeGenInsertAllAction"
+                    text="Insert All Suggestions">
+                <keyboard-shortcut first-keystroke="alt A" keymap="$default"/>
+            </action>
+
+            <action class="com.github.fishlll.jetbrainsplugins.actions.CodeGenInsertLineAction"
+                    id="com.github.fishlll.jetbrainsplugins.actions.CodeGenInsertLineAction"
+                    text="Insert Single Line">
+                <keyboard-shortcut first-keystroke="alt S" keymap="$default"/>
             </action>
 
         </group>

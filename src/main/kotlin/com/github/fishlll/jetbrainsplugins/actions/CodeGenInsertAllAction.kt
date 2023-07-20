@@ -24,14 +24,16 @@ class CodeGenInsertAllAction : AnAction() {
 		// Only allow this if there are hints in the userdata.
 		val file = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
 		val hints = file.getUserData(StarCoderWidget.STAR_CODER_CODE_SUGGESTION)
-		e.presentation.isEnabledAndVisible = hints != null && hints.size > 0
+		e.presentation.isEnabledAndVisible = !hints.isNullOrEmpty()
 	}
 
 	companion object {
 		fun performAction(editor: Editor?, caret: Caret?, file: VirtualFile?): Boolean {
-			if (file == null) return false
+			if (file == null)
+				return false
 			val hints = file.getUserData(StarCoderWidget.STAR_CODER_CODE_SUGGESTION)
-			if (hints == null || hints.size == 0) return false
+			if (hints.isNullOrEmpty())
+				return false
 			val starCoderPos = file.getUserData(StarCoderWidget.STAR_CODER_POSITION)
 			val lastPosition = starCoderPos ?: 0
 			if (caret == null || caret.offset != lastPosition) return false
