@@ -17,10 +17,13 @@ class CodeGenTabAction(protected val myOriginalHandler: EditorActionHandler) : E
 	}
 
 	private fun insertCodeSuggestion(editor: Editor, caret: Caret?, dataContext: DataContext): Boolean {
+
 		val file = dataContext.getData(CommonDataKeys.VIRTUAL_FILE)
 		val tabActionOption = StarCoderSettings.instance.tabActionOption
 		return when (tabActionOption) {
+			//插入所有建议
 			TabActionOption.ALL -> CodeGenInsertAllAction.performAction(editor, caret, file)
+			//插入单行建议
 			TabActionOption.SINGLE -> CodeGenInsertLineAction.performAction(editor, caret, file)
 			else -> false
 		}

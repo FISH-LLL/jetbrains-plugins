@@ -148,22 +148,27 @@ class StarCoderWidget(project: Project) : EditorBasedWidget(project), Multiframe
 	}
 
 	override fun propertyChange(evt: PropertyChangeEvent) {
+		println("->StarCoderWidget propertyChange")
 		updateInlayHints(focusOwnerEditor)
 	}
 
 	override fun selectionChanged(event: SelectionEvent) {
+		println("->StarCoderWidget selectionChanged")
 		updateInlayHints(event.editor)
 	}
 
 	override fun caretPositionChanged(event: CaretEvent) {
+		println("->StarCoderWidget caretPositionChanged")
 		updateInlayHints(event.editor)
 	}
 
 	override fun caretAdded(event: CaretEvent) {
+		println("->StarCoderWidget caretAdded")
 		updateInlayHints(event.editor)
 	}
 
 	override fun caretRemoved(event: CaretEvent) {
+		println("->StarCoderWidget caretRemoved")
 		updateInlayHints(event.editor)
 	}
 

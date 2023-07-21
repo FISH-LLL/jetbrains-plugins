@@ -21,6 +21,7 @@
         <editorOptionsProvider instance="com.github.fishlll.jetbrainsplugins.settings.StarCoderSettingsProvider"/>
         <applicationService serviceImplementation="com.github.fishlll.jetbrainsplugins.StarCoderService"/>
         <applicationService serviceImplementation="com.github.fishlll.jetbrainsplugins.settings.StarCoderSettings"/>
+        <!--状态栏小部件 https://plugins.jetbrains.com/docs/intellij/status-bar-widgets.html-->
         <statusBarWidgetFactory id="StarCoderFactory"
                                 implementation="com.github.fishlll.jetbrainsplugins.StarCoderWidgetFactory"
                                 order="after positionWidget"/>
@@ -45,9 +46,11 @@
                     class="com.github.fishlll.jetbrainsplugins.actions.PsiNavigationDemoAction"
                     text="PSI Navigation Demo"/>
 
+            <!--编辑器中右键菜单-->
             <action class="com.github.fishlll.jetbrainsplugins.actions.CodeGenPromptAction"
                     id="com.github.fishlll.jetbrainsplugins.actions.CodeGenPromptAction"
                     text="Prompt with Selection">
+                <add-to-group group-id="EditorPopupMenu" anchor="first"/>
                 <keyboard-shortcut first-keystroke="alt P" keymap="$default"/>
             </action>
 

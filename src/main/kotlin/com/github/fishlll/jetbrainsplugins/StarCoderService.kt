@@ -48,7 +48,7 @@ class StarCoderService {
 		val suffix = contents.substring(cursorPosition, editorContents.length)
 		val starCoderPrompt = generateFIMPrompt(prefix, suffix)
 		val httpPost = buildApiPost(settings, starCoderPrompt)
-		println("Calling API: $cursorPosition")
+		println("->StarCoderService.getCodeCompletionHints Calling API: $cursorPosition")
 		val generatedText = getApiResponse(httpPost)
 		var suggestionList: Array<String>? = null
 		if (generatedText.contains(MIDDLE_TAG)) {
@@ -128,6 +128,9 @@ class StarCoderService {
 		} catch (e: IOException) {
 			// TODO log exception
 		}
+
+//		println("API 请求: $httpPost \n 回应: $responseText")
+
 		return responseText
 	}
 
