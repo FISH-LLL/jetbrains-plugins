@@ -49,20 +49,20 @@
             <!--编辑器中右键菜单-->
             <action class="com.github.fishlll.jetbrainsplugins.actions.CodeGenPromptAction"
                     id="com.github.fishlll.jetbrainsplugins.actions.CodeGenPromptAction"
-                    text="Prompt with Selection">
+                    text="对选择文本提示">
                 <add-to-group group-id="EditorPopupMenu" anchor="first"/>
                 <keyboard-shortcut first-keystroke="alt P" keymap="$default"/>
             </action>
 
             <action class="com.github.fishlll.jetbrainsplugins.actions.CodeGenInsertAllAction"
                     id="com.github.fishlll.jetbrainsplugins.actions.CodeGenInsertAllAction"
-                    text="Insert All Suggestions">
+                    text="插入所有提示">
                 <keyboard-shortcut first-keystroke="alt A" keymap="$default"/>
             </action>
 
             <action class="com.github.fishlll.jetbrainsplugins.actions.CodeGenInsertLineAction"
                     id="com.github.fishlll.jetbrainsplugins.actions.CodeGenInsertLineAction"
-                    text="Insert Single Line">
+                    text="插入单行提示">
                 <keyboard-shortcut first-keystroke="alt S" keymap="$default"/>
             </action>
 

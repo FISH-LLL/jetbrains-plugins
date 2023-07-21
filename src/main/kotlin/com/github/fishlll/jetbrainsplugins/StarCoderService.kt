@@ -159,6 +159,7 @@ class StarCoderService {
 			)
 			return replacement
 		}
+
 		val httpPost = buildApiPost(settings, prompt)
 		val generatedText = getApiResponse(httpPost)
 		if (!StringUtils.isEmpty(generatedText)) {
