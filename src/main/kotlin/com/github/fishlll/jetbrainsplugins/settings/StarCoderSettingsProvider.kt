@@ -30,8 +30,14 @@ class StarCoderSettingsProvider : EditorOptionsProvider {
 
 	override fun isModified(): Boolean {
 		val savedSettings: StarCoderSettings = StarCoderSettings.instance
-		return (savedSettings.apiURL != settingsPanel!!.apiUrl
-				|| savedSettings.apiToken != settingsPanel!!.apiToken || savedSettings.tabActionOption != settingsPanel!!.tabActionOption) || savedSettings.isSaytEnabled != settingsPanel!!.enableSAYTCheckBox || savedSettings.temperature != settingsPanel!!.temperature?.toFloat() ?: 0.0 || savedSettings.maxNewTokens != settingsPanel!!.maxNewTokens!!.toInt() || savedSettings.topP != (settingsPanel!!.topP?.toFloat() ?: 0.0) || savedSettings.repetitionPenalty != (settingsPanel!!.repetition?.toFloat() ?: 0.0)
+		return (savedSettings.apiURL != settingsPanel!!.apiUrl ||
+				savedSettings.apiToken != settingsPanel!!.apiToken ||
+				savedSettings.tabActionOption != settingsPanel!!.tabActionOption) ||
+				savedSettings.isSaytEnabled != settingsPanel!!.enableSAYTCheckBox ||
+				savedSettings.temperature != (settingsPanel!!.temperature?.toFloat() ?: 0.0) ||
+				savedSettings.maxNewTokens != settingsPanel!!.maxNewTokens!!.toInt() ||
+				savedSettings.topP != (settingsPanel!!.topP?.toFloat() ?: 0.0) ||
+				savedSettings.repetitionPenalty != (settingsPanel!!.repetition?.toFloat() ?: 0.0)
 	}
 
 	@Throws(ConfigurationException::class)
