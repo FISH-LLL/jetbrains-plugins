@@ -181,31 +181,29 @@ class StarCoderWidget(project: Project) : EditorBasedWidget(project), Multiframe
 		}
 	}
 
+	//更新内嵌提示
 	private fun updateInlayHints(focusedEditor: Editor?) {
-		if (focusedEditor == null) return
+		if (focusedEditor == null)
+			return
+
 		// TODO File extension exclusion settings?
 		val file = FileDocumentManager.getInstance().getFile(focusedEditor.document) ?: return
 
-		// If a selection is highlighted, clear all hints.
+		// 如果选定的内容是高亮显示，清除所有提示
 		val selection = focusedEditor.caretModel.currentCaret.selectedText
-		if (selection != null && selection.length > 0) {
+		if (!selection.isNullOrEmpty()) {
 			val existingHints = file.getUserData(STAR_CODER_CODE_SUGGESTION)
-			if (existingHints != null && existingHints.size > 0) {
+			if (!existingHints.isNullOrEmpty()) {
 				file.putUserData(STAR_CODER_CODE_SUGGESTION, null)
 				file.putUserData(STAR_CODER_POSITION, focusedEditor.caretModel.offset)
+
 				val inlayModel = focusedEditor.inlayModel
-				inlayModel.getInlineElementsInRange(
-					0,
-					focusedEditor.document.textLength,
-					CodeGenHintRenderer::class.java
-				).forEach(
-					java.util.function.Consumer { obj: Inlay<out CodeGenHintRenderer?> -> obj.dispose() })
-				inlayModel.getBlockElementsInRange(
-					0,
-					focusedEditor.document.textLength,
-					CodeGenHintRenderer::class.java
-				).forEach(
-					java.util.function.Consumer { obj: Inlay<out CodeGenHintRenderer?> -> obj.dispose() })
+				inlayModel
+					.getInlineElementsInRange(0, focusedEditor.document.textLength, CodeGenHintRenderer::class.java)
+					.forEach( java.util.function.Consumer { obj: Inlay<out CodeGenHintRenderer?> -> obj.dispose() } )
+
+				inlayModel.getBlockElementsInRange(0, focusedEditor.document.textLength, CodeGenHintRenderer::class.java)
+					.forEach( java.util.function.Consumer { obj: Inlay<out CodeGenHintRenderer?> -> obj.dispose() } )
 			}
 			return
 		}
@@ -213,17 +211,17 @@ class StarCoderWidget(project: Project) : EditorBasedWidget(project), Multiframe
 		val lastPosition = starCoderPos ?: 0
 		val currentPosition = focusedEditor.caretModel.offset
 
-		// If cursor hasn't moved, don't do anything.
-		if (lastPosition == currentPosition) return
+		// 如果光标没有启动, 则什么都不做, 直接返回.
+		if (lastPosition == currentPosition)
+			return
 
-		// Check the existing inline hint (not blocks) if it exists.
+		// 检查是否有inline 提示
 		val inlayModel = focusedEditor.inlayModel
 		if (currentPosition > lastPosition) {
-			var existingHints = file.getUserData<Array<String>>(STAR_CODER_CODE_SUGGESTION)
-			if (existingHints != null && existingHints.size > 0) {
+			var existingHints = file.getUserData(STAR_CODER_CODE_SUGGESTION)
+			if (!existingHints.isNullOrEmpty()) {
 				var inlineHint = existingHints[0]
-				var modifiedText =
-					focusedEditor.document.charsSequence.subSequence(lastPosition, currentPosition).toString()
+				var modifiedText = focusedEditor.document.charsSequence.subSequence(lastPosition, currentPosition).toString()
 				if (modifiedText.startsWith("\n")) {
 					// If the user typed Enter, the editor may have auto-spaced for alignment.
 					modifiedText = modifiedText.replace(" ", "")
@@ -233,27 +231,27 @@ class StarCoderWidget(project: Project) : EditorBasedWidget(project), Multiframe
 					// The problem is that the spaces are split in the update, some spaces are included after the carriage return,
 					// (in the caret position update) but then after document change has more spaces in it.
 				}
-				// See if they typed the same thing that we suggested.
+				// 如果用户输入了和提示(开头部分)相同的字符
 				if (inlineHint!!.startsWith(modifiedText)) {
-					// Update the hint rather than calling the API to suggest a new one.
+					// 更新提示，而不是调用 API 产生新的提示
 					inlineHint = inlineHint.substring(modifiedText.length)
-					if (inlineHint.length > 0) {
-						// We only need to modify the inline hint and any block hints will remain unchanged.
+					if (inlineHint.isNotEmpty()) {
+						// 我们仅需要修改 inline hint。 block hints 保持不变
 						inlayModel.getInlineElementsInRange(
 							0,
 							focusedEditor.document.textLength,
 							CodeGenHintRenderer::class.java
-						).forEach(
-							java.util.function.Consumer { obj: Inlay<out CodeGenHintRenderer?> -> obj.dispose() })
+						).forEach( java.util.function.Consumer { obj: Inlay<out CodeGenHintRenderer?> -> obj.dispose() } )
+
 						inlayModel.addInlineElement(currentPosition, true, CodeGenHintRenderer(inlineHint))
 						existingHints[0] = inlineHint
 
-						// Update the UserData
+						// 更新 USerData
 						file.putUserData(STAR_CODER_CODE_SUGGESTION, existingHints)
 						file.putUserData(STAR_CODER_POSITION, currentPosition)
 						return
 					} else if (existingHints.size > 1) {
-						// If the first line has been completely inserted, and there are more lines, move them up.
+						// 如果第一行完成插入，把其他行前移。
 						existingHints = Arrays.copyOfRange(existingHints, 1, existingHints.size)
 						addCodeSuggestion(focusedEditor, file, currentPosition, existingHints)
 						return

@@ -92,6 +92,7 @@ class StarCoderService {
 		httpBody.add("parameters", parameters)
 		val requestEntity = StringEntity(httpBody.toString(), ContentType.APPLICATION_JSON)
 		httpPost.entity = requestEntity
+		println("->buildApiPost ${apiURL}\nentity:${httpBody}")
 		return httpPost
 	}
 
@@ -129,7 +130,7 @@ class StarCoderService {
 			// TODO log exception
 		}
 
-//		println("API 请求: $httpPost \n 回应: $responseText")
+		println("->getApiResponse: \n${responseText}")
 
 		return responseText
 	}
