@@ -30,27 +30,33 @@ class StarCoderSettingsProvider : EditorOptionsProvider {
 
 	override fun isModified(): Boolean {
 		val savedSettings: StarCoderSettings = StarCoderSettings.instance
-		return (savedSettings.apiURL != settingsPanel!!.apiUrl ||
-				savedSettings.apiToken != settingsPanel!!.apiToken ||
-				savedSettings.tabActionOption != settingsPanel!!.tabActionOption) ||
-				savedSettings.isSaytEnabled != settingsPanel!!.enableSAYTCheckBox ||
-				savedSettings.temperature != (settingsPanel!!.temperature?.toFloat() ?: 0.0) ||
-				savedSettings.maxNewTokens != settingsPanel!!.maxNewTokens!!.toInt() ||
-				savedSettings.topP != (settingsPanel!!.topP?.toFloat() ?: 0.0) ||
-				savedSettings.repetitionPenalty != (settingsPanel!!.repetition?.toFloat() ?: 0.0)
+
+		val settingsPanel = settingsPanel!!
+
+		return (savedSettings.apiURL != settingsPanel.apiUrl ||
+				savedSettings.apiToken != settingsPanel.apiToken ||
+				savedSettings.tabActionOption != settingsPanel.tabActionOption) ||
+				savedSettings.isSaytEnabled != settingsPanel.enableSAYTCheckBox ||
+				savedSettings.temperature != (settingsPanel.temperature?.toFloat() ?: 0.0) ||
+				savedSettings.maxNewTokens != settingsPanel.maxNewTokens!!.toInt() ||
+				savedSettings.topP != (settingsPanel.topP?.toFloat() ?: 0.0) ||
+				savedSettings.repetitionPenalty != (settingsPanel.repetition?.toFloat() ?: 0.0)
 	}
 
+	//把UI数据保存到 savedSettings
 	@Throws(ConfigurationException::class)
 	override fun apply() {
 		val savedSettings: StarCoderSettings = StarCoderSettings.instance
-		savedSettings.apiURL = settingsPanel!!.apiUrl ?: ""
-		savedSettings.apiToken = settingsPanel!!.apiToken
-		savedSettings.isSaytEnabled = settingsPanel!!.enableSAYTCheckBox
-		savedSettings.tabActionOption = settingsPanel!!.tabActionOption!!
-		savedSettings.setTemperature(settingsPanel!!.temperature ?: "")
-		savedSettings.setMaxNewTokens(settingsPanel!!.maxNewTokens ?: "")
-		savedSettings.setTopP(settingsPanel!!.topP ?: "")
-		savedSettings.setRepetitionPenalty(settingsPanel!!.repetition ?: "")
+		val settingsPanel = settingsPanel!!
+
+		savedSettings.apiURL = settingsPanel.apiUrl ?: ""
+		savedSettings.apiToken = settingsPanel.apiToken
+		savedSettings.isSaytEnabled = settingsPanel.enableSAYTCheckBox
+		savedSettings.tabActionOption = settingsPanel.tabActionOption!!
+		savedSettings.setTemperature(settingsPanel.temperature ?: "")
+		savedSettings.setMaxNewTokens(settingsPanel.maxNewTokens ?: "")
+		savedSettings.setTopP(settingsPanel.topP ?: "")
+		savedSettings.setRepetitionPenalty(settingsPanel.repetition ?: "")
 
 		// Update the widget
 		for (openProject in ProjectManager.getInstance().openProjects) {
@@ -58,6 +64,7 @@ class StarCoderSettingsProvider : EditorOptionsProvider {
 		}
 	}
 
+	//重置UI数据
 	override fun reset() {
 		val savedSettings: StarCoderSettings = StarCoderSettings.instance
 		settingsPanel!!.apiUrl = savedSettings.apiURL
