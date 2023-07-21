@@ -17,9 +17,9 @@ class StarCoderSettings : PersistentStateComponent<Element?> {
 	var apiURL = "https://api-inference.huggingface.co/models/bigcode/starcoder"
 	@JvmField
     var tabActionOption = TabActionOption.ALL
-	var temperature = 0.2f
+	var temperature = 1.0f
 		private set
-	var maxNewTokens = 256
+	var maxNewTokens = 1024
 		private set
 	var topP = 0.9f
 		private set

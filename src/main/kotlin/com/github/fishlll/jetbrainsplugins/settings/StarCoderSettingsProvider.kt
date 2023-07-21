@@ -47,10 +47,10 @@ class StarCoderSettingsProvider : EditorOptionsProvider {
 		savedSettings.apiToken = settingsPanel!!.apiToken
 		savedSettings.isSaytEnabled = settingsPanel!!.enableSAYTCheckBox
 		savedSettings.tabActionOption = settingsPanel!!.tabActionOption!!
-		savedSettings.setTemperature(settingsPanel!!.temperature ?: "未设置")
-		savedSettings.setMaxNewTokens(settingsPanel!!.maxNewTokens ?: "未设置")
-		savedSettings.setTopP(settingsPanel!!.topP ?: "未设置")
-		savedSettings.setRepetitionPenalty(settingsPanel!!.repetition ?: "未设置")
+		savedSettings.setTemperature(settingsPanel!!.temperature ?: "")
+		savedSettings.setMaxNewTokens(settingsPanel!!.maxNewTokens ?: "")
+		savedSettings.setTopP(settingsPanel!!.topP ?: "")
+		savedSettings.setRepetitionPenalty(settingsPanel!!.repetition ?: "")
 
 		// Update the widget
 		for (openProject in ProjectManager.getInstance().openProjects) {
@@ -59,7 +59,7 @@ class StarCoderSettingsProvider : EditorOptionsProvider {
 	}
 
 	override fun reset() {
-		val savedSettings: StarCoderSettings = StarCoderSettings.Companion.instance
+		val savedSettings: StarCoderSettings = StarCoderSettings.instance
 		settingsPanel!!.apiUrl = savedSettings.apiURL
 		settingsPanel!!.apiToken = savedSettings.apiToken
 		settingsPanel!!.enableSAYTCheckBox = savedSettings.isSaytEnabled

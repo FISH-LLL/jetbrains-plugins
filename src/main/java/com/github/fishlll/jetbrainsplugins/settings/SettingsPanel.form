@@ -132,7 +132,10 @@
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <text value="1.0"/>
+                  <toolTipText value="默认为1.0。将其设置为更高的值(如1.2)会产生更随机的文本。取值范围(0.0,100.0)"/>
+                </properties>
               </component>
               <component id="e5eea" class="javax.swing.JLabel">
                 <constraints>
@@ -146,7 +149,10 @@
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <text value="1024"/>
+                  <toolTipText value="可以调整生成文本的长度。"/>
+                </properties>
               </component>
               <component id="3747f" class="javax.swing.JLabel">
                 <constraints>
@@ -160,7 +166,10 @@
                 <constraints>
                   <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <text value="1.0"/>
+                  <toolTipText value="默认为1.0,即完全随机采样。将其降低到0.9或0.8可以增加采样多样性。"/>
+                </properties>
               </component>
               <component id="b6448" class="javax.swing.JLabel">
                 <constraints>
@@ -174,7 +183,10 @@
                 <constraints>
                   <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <text value="1.0"/>
+                  <toolTipText value="将其调高可以减少文本重复。(0.0-100.0)"/>
+                </properties>
               </component>
             </children>
           </grid>
