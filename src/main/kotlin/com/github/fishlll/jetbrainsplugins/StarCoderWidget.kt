@@ -211,7 +211,7 @@ class StarCoderWidget(project: Project) : EditorBasedWidget(project), Multiframe
 		val lastPosition = starCoderPos ?: 0
 		val currentPosition = focusedEditor.caretModel.offset
 
-		// 如果光标没有启动, 则什么都不做, 直接返回.
+		// 如果光标没有变化, 则什么都不做, 直接返回.
 		if (lastPosition == currentPosition)
 			return
 
@@ -237,12 +237,15 @@ class StarCoderWidget(project: Project) : EditorBasedWidget(project), Multiframe
 					inlineHint = inlineHint.substring(modifiedText.length)
 					if (inlineHint.isNotEmpty()) {
 						// 我们仅需要修改 inline hint。 block hints 保持不变
+
+						//清空所有的inline hint
 						inlayModel.getInlineElementsInRange(
 							0,
 							focusedEditor.document.textLength,
 							CodeGenHintRenderer::class.java
 						).forEach( java.util.function.Consumer { obj: Inlay<out CodeGenHintRenderer?> -> obj.dispose() } )
 
+						//添加 inline hint
 						inlayModel.addInlineElement(currentPosition, true, CodeGenHintRenderer(inlineHint))
 						existingHints[0] = inlineHint
 
@@ -256,23 +259,21 @@ class StarCoderWidget(project: Project) : EditorBasedWidget(project), Multiframe
 						addCodeSuggestion(focusedEditor, file, currentPosition, existingHints)
 						return
 					} else {
-						// We ran out of inline hint and there are no block hints,
-						// So clear the hints now, and we'll call the API below.
+						// 已经插入了所有的 inline hint。 同时没有 block hints。
+						// 那么清理 hints, 然后继续调用API 请求新的hints。
 						file.putUserData(STAR_CODER_CODE_SUGGESTION, null)
 					}
 				}
 			}
 		}
 
-		// If we made it through all that, clear all hints and call the API.
+		// 清理所有的 hints(保险操作)
 		inlayModel.getInlineElementsInRange(0, focusedEditor.document.textLength, CodeGenHintRenderer::class.java)
-			.forEach(
-				java.util.function.Consumer { obj: Inlay<out CodeGenHintRenderer?> -> obj.dispose() })
+			.forEach( java.util.function.Consumer { obj: Inlay<out CodeGenHintRenderer?> -> obj.dispose() })
 		inlayModel.getBlockElementsInRange(0, focusedEditor.document.textLength, CodeGenHintRenderer::class.java)
-			.forEach(
-				java.util.function.Consumer { obj: Inlay<out CodeGenHintRenderer?> -> obj.dispose() })
+			.forEach( java.util.function.Consumer { obj: Inlay<out CodeGenHintRenderer?> -> obj.dispose() })
 
-		// Update position immediately to prevent repeated calls.
+		// 立即更新位置，防止重复调用
 		file.putUserData(STAR_CODER_POSITION, currentPosition)
 		val starCoder = ApplicationManager.getApplication().getService(
 			StarCoderService::class.java

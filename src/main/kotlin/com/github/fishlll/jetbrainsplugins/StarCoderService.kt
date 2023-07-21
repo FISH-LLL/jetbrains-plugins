@@ -24,10 +24,13 @@ class StarCoderService {
 		private set
 
 	fun getCodeCompletionHints(editorContents: CharSequence, cursorPosition: Int): Array<String>? {
-		val settings = StarCoderSettings.instance
-		if (!settings.isSaytEnabled) return null
 
-		// TODO Notification banner?
+		val settings = StarCoderSettings.instance
+
+		if (!settings.isSaytEnabled)
+			return null
+
+		// 缺少 APIToken，通知提示
 		if (StringUtils.isEmpty(settings.apiToken)) {
 			Notifications.Bus.notify(
 				Notification(
@@ -39,31 +42,37 @@ class StarCoderService {
 			)
 			return null
 		}
+
 		val contents = editorContents.toString()
-		if (contents.contains(PREFIX_TAG) || contents.contains(SUFFIX_TAG) || contents.contains(MIDDLE_TAG) || contents.contains(
-				END_TAG
-			)
-		) return null
+		if (contents.contains(PREFIX_TAG)
+			|| contents.contains(SUFFIX_TAG)
+			|| contents.contains(MIDDLE_TAG)
+			|| contents.contains(END_TAG)) {
+			return null
+		}
+
+		//以光标为分界线,生成新的 promp，形式: PREFIX_TAG + prefix + SUFFIX_TAG + suffix + MIDDLE_TAG
 		val prefix = contents.substring(0, cursorPosition)
 		val suffix = contents.substring(cursorPosition, editorContents.length)
 		val starCoderPrompt = generateFIMPrompt(prefix, suffix)
+
+		//请求API
 		val httpPost = buildApiPost(settings, starCoderPrompt)
 		println("->StarCoderService.getCodeCompletionHints Calling API: $cursorPosition")
 		val generatedText = getApiResponse(httpPost)
+
+		//分析返回数据
 		var suggestionList: Array<String>? = null
 		if (generatedText.contains(MIDDLE_TAG)) {
 			val parts = generatedText.split(MIDDLE_TAG.toRegex()).dropLastWhile { it.isEmpty() }
 				.toTypedArray()
 			if (parts.size > 1) {
 				suggestionList = StringUtils.splitPreserveAllTokens(parts[1], "\n")
-				if (suggestionList.size == 1 && suggestionList[0].trim { it <= ' ' }.length == 0) return null
-				if (suggestionList.size > 1) {
-					for (i in suggestionList.indices) {
-						val sb = StringBuilder(suggestionList[i])
-						sb.append("\n")
-						suggestionList[i] = sb.toString()
-					}
-				}
+				if (suggestionList.size == 1 && suggestionList[0].trim { it <= ' ' }.isEmpty())
+					return null
+
+				//每个数组元素，增加 "\n"
+				suggestionList = suggestionList.map { it + "\n" }.toTypedArray()
 			}
 		}
 		return suggestionList
