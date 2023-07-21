@@ -1,5 +1,6 @@
 package com.github.fishlll.jetbrainsplugins.settings
 
+//import com.github.fishlll.jetbrainsplugins.settings.SettingsPanel
 import com.github.fishlll.jetbrainsplugins.StarCoderWidget
 import com.intellij.application.options.editor.EditorOptionsProvider
 import com.intellij.openapi.options.ConfigurationException
@@ -9,7 +10,7 @@ import com.intellij.openapi.wm.WindowManager
 import org.jetbrains.annotations.NonNls
 import javax.swing.JComponent
 
-import com.github.fishlll.jetbrainsplugins.settings.SettingsPanel
+
 
 class StarCoderSettingsProvider : EditorOptionsProvider {
 	private var settingsPanel: SettingsPanel? = null

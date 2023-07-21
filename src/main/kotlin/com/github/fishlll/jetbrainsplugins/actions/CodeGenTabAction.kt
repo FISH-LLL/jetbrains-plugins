@@ -1,6 +1,6 @@
 package com.github.fishlll.jetbrainsplugins.actions
 
-import com.github.fishlll.jetbrainsplugins.settings.StarCoderSettings.Companion.instance
+import com.github.fishlll.jetbrainsplugins.settings.StarCoderSettings
 import com.github.fishlll.jetbrainsplugins.settings.TabActionOption
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataContext
@@ -18,10 +18,10 @@ class CodeGenTabAction(protected val myOriginalHandler: EditorActionHandler) : E
 
 	private fun insertCodeSuggestion(editor: Editor, caret: Caret?, dataContext: DataContext): Boolean {
 		val file = dataContext.getData(CommonDataKeys.VIRTUAL_FILE)
-		val tabActionOption = instance.tabActionOption
+		val tabActionOption = StarCoderSettings.instance.tabActionOption
 		return when (tabActionOption) {
-			TabActionOption.ALL -> CodeGenInsertAllAction.Companion.performAction(editor, caret, file)
-			TabActionOption.SINGLE -> CodeGenInsertLineAction.Companion.performAction(editor, caret, file)
+			TabActionOption.ALL -> CodeGenInsertAllAction.performAction(editor, caret, file)
+			TabActionOption.SINGLE -> CodeGenInsertLineAction.performAction(editor, caret, file)
 			else -> false
 		}
 	}

@@ -107,7 +107,7 @@ class StarCoderService {
 			if (status != oldStatusCode) {
 				// Update the widget based on the new status code
 				for (openProject in ProjectManager.getInstance().openProjects) {
-					WindowManager.getInstance().getStatusBar(openProject).updateWidget(StarCoderWidget.Companion.ID)
+					WindowManager.getInstance().getStatusBar(openProject).updateWidget(StarCoderWidget.ID)
 				}
 			}
 			if (status != 200) {

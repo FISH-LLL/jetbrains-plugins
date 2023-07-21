@@ -44,11 +44,11 @@ class StarCoderWidget(project: Project) : EditorBasedWidget(project), Multiframe
 		val starCoder = ApplicationManager.getApplication().getService(
 			StarCoderService::class.java
 		)
-		val status: StarCoderStatus = StarCoderStatus.Companion.getStatusByCode(starCoder.status)
+		val status: StarCoderStatus = StarCoderStatus.getStatusByCode(starCoder.status)
 		return if (status == StarCoderStatus.OK) {
-			if (StarCoderSettings.instance.isSaytEnabled) StarCoderIcons.Companion.WidgetEnabled else StarCoderIcons.Companion.WidgetDisabled
+			if (StarCoderSettings.instance.isSaytEnabled) StarCoderIcons.WidgetEnabled else StarCoderIcons.WidgetDisabled
 		} else {
-			StarCoderIcons.Companion.WidgetError
+			StarCoderIcons.WidgetError
 		}
 	}
 
@@ -67,7 +67,7 @@ class StarCoderWidget(project: Project) : EditorBasedWidget(project), Multiframe
 			StarCoderService::class.java
 		)
 		val statusCode = starCoder.status
-		val status: StarCoderStatus = StarCoderStatus.Companion.getStatusByCode(statusCode)
+		val status: StarCoderStatus = StarCoderStatus.getStatusByCode(statusCode)
 		when (status) {
 			StarCoderStatus.OK -> if (StarCoderSettings.instance.isSaytEnabled) {
 				toolTipText.append(" (Click to disable)")

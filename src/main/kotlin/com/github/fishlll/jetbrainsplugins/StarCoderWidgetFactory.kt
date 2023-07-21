@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NonNls
 
 class StarCoderWidgetFactory : StatusBarEditorBasedWidgetFactory() {
 	override fun getId(): @NonNls String {
-		return StarCoderWidget.Companion.ID
+		return StarCoderWidget.ID
 	}
 
 	override fun getDisplayName(): @Nls String {
