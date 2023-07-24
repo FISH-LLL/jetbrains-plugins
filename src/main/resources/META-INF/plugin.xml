@@ -13,6 +13,7 @@
     <depends>com.intellij.modules.platform</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
+    <resource-bundle>messages.InspectionBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="com.github.fishlll.jetbrainsplugins.toolWindow.MyToolWindowFactory"
@@ -27,6 +28,42 @@
                                 order="after positionWidget"/>
         <editorActionHandler action="EditorTab" implementationClass="com.github.fishlll.jetbrainsplugins.actions.CodeGenTabAction"/>
         <notificationGroup id="StarCoder" displayType="STICKY_BALLOON" isLogByDefault="true"/>
+
+        <!--
+        显示路径: <b>Settings | Editor | Inspections | Java | Probable Bugs
+
+      Extend the IntelliJ Platform local inspection type and connect it to the implementation class in this plugin.
+      <localInspection> type element is applied within the scope of a file under edit.
+      It is preferred over <inspectionToolProvider>
+        @see intellij.platform.resources.LangExtensionPoints
+        @see com.intellij.codeInspection.InspectionProfileEntry
+
+      Attributes:
+        - language - inspection language ID
+        - shortName - not specified, will be computed by the underlying implementation classes
+        - bundle - name of the message bundle for the "key" attribute
+        - key - the key of the message to be shown in the Settings | Editor | Inspections panel
+        - groupPath - defines the outermost grouping for this inspection in
+            the Settings | Editor | Inspections panel. Not localized.
+        - groupBundle - the name of a message bundle file to translate groupKey
+            In this case, reuse an IntelliJ Platform bundle file from intellij.platform.resources.en
+        - groupKey - the key to use for translation subgroup name using groupBundle file.
+            In this case, reuse the IntelliJ Platform subcategory "Probable bugs"
+        - enabledByDefault - inspection state when the Inspections panel is created.
+        - level - the default level of error found by this inspection, e.g. INFO, ERROR, etc.
+            @see com.intellij.codeHighlighting.HighlightDisplayLevel
+        - implementationClass= the fully-qualified name of the inspection implementation class
+    -->
+        <localInspection language="JAVA"
+                         bundle="messages.InspectionBundle"
+                         key="inspection.comparing.string.references.display.name"
+                         groupPath="Java"
+                         groupBundle="messages.InspectionBundle"
+                         groupKey="group.names.probable.bugs"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="com.github.fishlll.jetbrainsplugins.codeInspection.ComparingStringReferencesInspection"/>
+
     </extensions>
 
     <applicationListeners>
