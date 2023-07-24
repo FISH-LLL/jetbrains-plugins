@@ -27,6 +27,8 @@ class PsiNavigationDemoAction: AnAction(){
 			val element = psiFile.findElementAt(offset) ?: break
 			info += "$element" + "\n"
 
+			print("element.parent.text=${element.parent.text}")
+
 			val containingMethod = PsiTreeUtil.getParentOfType(element, PsiMethod::class.java) ?: break
 			info += "所在方法:${containingMethod?.name}\n"
 
