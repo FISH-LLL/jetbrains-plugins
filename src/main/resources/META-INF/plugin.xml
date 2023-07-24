@@ -44,7 +44,10 @@
 
             <action id="com.github.fishlll.jetbrainsplugins.actions.PsiNavigationDemoAction"
                     class="com.github.fishlll.jetbrainsplugins.actions.PsiNavigationDemoAction"
-                    text="PSI Navigation Demo"/>
+                    text="查看PSI信息">
+                <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            </action>
+
 
             <!--编辑器中右键菜单-->
             <action class="com.github.fishlll.jetbrainsplugins.actions.CodeGenPromptAction"
