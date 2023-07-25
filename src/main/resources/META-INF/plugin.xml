@@ -52,6 +52,8 @@
             @see com.intellij.codeHighlighting.HighlightDisplayLevel
         - implementationClass= the fully-qualified name of the inspection implementation class
     -->
+
+        <!-- java 错误检查-->
         <localInspection language="JAVA"
                          bundle="messages.InspectionBundle"
                          key="inspection.comparing.string.references.display.name"
@@ -61,6 +63,14 @@
                          enabledByDefault="true"
                          level="WARNING"
                          implementationClass="com.github.fishlll.jetbrainsplugins.codeInspection.ComparingStringReferencesInspection"/>
+
+        <localInspection groupPath="JavaScript and TypeScript"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         displayName="JS测试-displayName"
+                         shortName="JS测试-shortName"
+                         implementationClass="com.github.fishlll.jetbrainsplugins.codeInspection.JSInspection"
+        />
 
     </extensions>
 
