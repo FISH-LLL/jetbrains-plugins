@@ -11,6 +11,8 @@
     <!--https://plugins.jetbrains.com/docs/intellij/webstorm.html#available-webstorm-apis 依赖com.intellij.modules.platform 就支持 JS-->
     <depends>com.intellij.modules.java</depends>
     <depends>com.intellij.modules.platform</depends>
+    <!--否则提示: Caused by: java.lang.ClassNotFoundException: com.intellij.lang.javascript.psi.JSObjectLiteralExpression PluginClassLoader(plugin=PluginDescriptor(name=TrainPlugin, id=com.github.fishlll.jetbrainsplugins, descriptorPath=plugin.xml, path=~/jetbrains-plugins/build/idea-sandbox/plugins/jetbrains-plugins, version=0.0.1, package=null), packagePrefix=null, instanceId=59, state=active)-->
+    <depends>JavaScript</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
     <resource-bundle>messages.InspectionBundle</resource-bundle>
