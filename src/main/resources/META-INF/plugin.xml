@@ -65,10 +65,14 @@
                          implementationClass="com.github.fishlll.jetbrainsplugins.codeInspection.ComparingStringReferencesInspection"/>
 
         <localInspection groupPath="JavaScript and TypeScript"
+                         groupBundle="messages.InspectionsBundle"
+                         bundle="messages.InspectionBundle"
                          enabledByDefault="true"
                          level="WARNING"
-                         displayName="JS测试-displayName"
-                         shortName="JS测试-shortName"
+                         displayName="JSTest-displayName"
+                         shortName="JSTest-shortName"
+                         key="inspection.comparing.string.references.display.name"
+                         groupKey="group.names.probable.bugs"
                          implementationClass="com.github.fishlll.jetbrainsplugins.codeInspection.JSInspection"
         />
 
